@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CrowdinAPILog {
+struct CrowdinAPILog {
 
     static func logRequest(
         method: String,

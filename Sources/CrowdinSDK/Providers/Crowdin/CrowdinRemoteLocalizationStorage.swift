@@ -58,7 +58,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.manifestManager.download(completion: { [weak self] in
             guard let self = self else { return }
             self.localizations = self.manifestManager.iOSLanguages
-            self.localization = CrowdinSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: self.localizations)
+            self.localization = CrowdinLightSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: self.localizations)
             completion()
         })
     }

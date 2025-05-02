@@ -13,7 +13,7 @@
 #endif
 import Foundation
 
-public struct AttributeFactory {
+struct AttributeFactory {
     static func make(_ attribute: LogAttribute) -> NSAttributedString {
         let empty = "Empty"
         let title = attribute.title

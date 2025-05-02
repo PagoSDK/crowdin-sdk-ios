@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import BaseAPI
 
 typealias CrowdinAPIFileDataCompletion = ((Data?, String?, Error?) -> Void)
 typealias CrowdinAPIStringsCompletion = (([String: String]?, String?, Error?) -> Void)

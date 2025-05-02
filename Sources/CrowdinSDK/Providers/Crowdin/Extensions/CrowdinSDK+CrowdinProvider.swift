@@ -7,15 +7,15 @@
 
 import Foundation
 
-extension CrowdinSDK {
+public extension CrowdinLightSDK {
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
-    public class func start() {
+    class func start() {
         self.startWithConfig(CrowdinSDKConfig.config(), completion: { })
     }
 
     /// Initialization method. Uses default CrowdinProvider with initialization values from Info.plist file.
     /// - Parameter completion: Crowdin SDK library initialization completion.
-    public class func start(completion: @escaping () -> Void) {
+    class func start(completion: @escaping () -> Void) {
         self.startWithConfig(CrowdinSDKConfig.config(), completion: completion)
     }
 
@@ -24,7 +24,7 @@ extension CrowdinSDK {
     /// - Parameters:
     ///   - config: Crowdin SDK configuration object.
     ///   - completion: Crowdin SDK library initialization completion.
-    public class func startWithConfig(_ config: CrowdinSDKConfig, completion: @escaping () -> Void) {
+    class func startWithConfig(_ config: CrowdinSDKConfig, completion: @escaping () -> Void) {
         self.config = config
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         let localization = currentLocalization ?? Bundle.main.preferredLanguage
@@ -36,7 +36,7 @@ extension CrowdinSDK {
     ///
     /// - Parameters:
     ///   - completion: Crowdin SDK Log message completion.
-    public class func setOnLogCallback(_ completion: @escaping CrowdinSDKLogMessage) {
+    internal class func setOnLogCallback(_ completion: @escaping CrowdinSDKLogMessage) {
         addLogMessageHandler(completion)
     }
 }

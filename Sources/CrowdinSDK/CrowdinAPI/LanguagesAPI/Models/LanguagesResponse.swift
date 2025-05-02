@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - LanguagesResponse
-public struct LanguagesResponse: Codable {
+struct LanguagesResponse: Codable {
     public let data: [LanguagesResponseDatum]
     public let pagination: LanguagesResponsePagination
 
@@ -24,7 +24,7 @@ public struct LanguagesResponse: Codable {
 }
 
 // MARK: - LanguagesResponseDatum
-public struct LanguagesResponseDatum: Codable {
+struct LanguagesResponseDatum: Codable {
     public let data: LanguagesResponseData
 
     enum CodingKeys: String, CodingKey {
@@ -37,7 +37,7 @@ public struct LanguagesResponseDatum: Codable {
 }
 
 // MARK: - LanguagesResponseData
-public struct LanguagesResponseData: Codable {
+struct LanguagesResponseData: Codable {
     public let id: String
     public let name: String
     public let editorCode: String
@@ -101,7 +101,7 @@ public struct LanguagesResponseData: Codable {
     }
 }
 
-public enum LanguagesResponsePluralCategoryName: String, Codable {
+enum LanguagesResponsePluralCategoryName: String, Codable {
     case few
     case many
     case one
@@ -110,13 +110,13 @@ public enum LanguagesResponsePluralCategoryName: String, Codable {
     case zero
 }
 
-public enum LanguagesResponseTextDirection: String, Codable {
+enum LanguagesResponseTextDirection: String, Codable {
     case ltr
     case rtl
 }
 
 // MARK: - LanguagesResponsePagination
-public struct LanguagesResponsePagination: Codable {
+struct LanguagesResponsePagination: Codable {
     public let offset: Int
     public let limit: Int
 

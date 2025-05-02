@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class CrowdinFolder: Folder {
+final class CrowdinFolder: Folder {
     enum Strings: String {
         case dot = "."
         case pathDelimiter = "/"

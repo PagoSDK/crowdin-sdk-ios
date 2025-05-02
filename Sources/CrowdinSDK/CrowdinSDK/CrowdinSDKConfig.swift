@@ -12,7 +12,7 @@ import Foundation
     /// Method for new config creation.
     ///
     /// - Returns: New CrowdinSDKConfig object instance.
-    public static func config() -> CrowdinSDKConfig {
+    static func config() -> CrowdinSDKConfig {
         return CrowdinSDKConfig()
     }
 }

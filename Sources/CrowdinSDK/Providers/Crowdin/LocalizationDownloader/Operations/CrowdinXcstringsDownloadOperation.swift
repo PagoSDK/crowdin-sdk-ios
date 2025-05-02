@@ -9,30 +9,30 @@ import Foundation
 
 typealias CrowdinDownloadOperationCompletion = ([String: String]?, [AnyHashable: Any]?, Error?) -> Void
 
-public struct Localizations: Codable {
+struct Localizations: Codable {
     public let sourceLanguage: String
     public let version: String
     public let strings: [String: StringInfo]
 }
 
-public struct StringInfo: Codable {
+struct StringInfo: Codable {
     public let extractionState: String?
     public let localizations: [String: StringLocalization]?
 }
 
-public struct StringLocalization: Codable {
+struct StringLocalization: Codable {
     public let stringUnit: StringUnit?
     public let variations: Variations?
     public let substitutions: [String: Substitution]?
 }
 
-public struct Substitution: Codable {
+struct Substitution: Codable {
     let argNum: Int
     let formatSpecifier: String
     let variations: Variations
 }
 
-public struct Variations: Codable {
+struct Variations: Codable {
     let plural: [String: StringUnitWrapper]?
     // Skip for v 1.0
     //    let device: DeviceVariations?
@@ -43,11 +43,11 @@ public struct Variations: Codable {
 //    let variations: [String: StringUnitWrapper]?
 // }
 
-public struct StringUnitWrapper: Codable {
+struct StringUnitWrapper: Codable {
     let stringUnit: StringUnit
 }
 
-public struct StringUnit: Codable {
+struct StringUnit: Codable {
     public let state: String
     public let value: String
 }

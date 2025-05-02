@@ -7,19 +7,19 @@
 
 import Foundation
 
-extension CrowdinSDK {
-    public class func startIntervalUpdates(interval: TimeInterval) {
+extension CrowdinLightSDK {
+    class func startIntervalUpdates(interval: TimeInterval) {
         IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)
         IntervalUpdateFeature.shared?.start()
     }
 
-    public class func stopIntervalUpdates() {
+    class func stopIntervalUpdates() {
         IntervalUpdateFeature.shared?.stop()
         IntervalUpdateFeature.shared = nil
     }
 
-    class func initializeIntervalUpdateFeature() {
-        guard let config = CrowdinSDK.config else { return }
+    func initializeIntervalUpdateFeature() {
+        guard let config = CrowdinLightSDK.config else { return }
         if config.intervalUpdatesEnabled {
             if let interval = config.localizationUpdatesInterval {
                 IntervalUpdateFeature.shared = IntervalUpdateFeature(interval: interval)

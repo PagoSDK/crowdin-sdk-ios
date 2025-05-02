@@ -31,7 +31,7 @@ extension CrowdinSDKConfig {
         }
     }
 
-    public func with(intervalUpdatesEnabled: Bool, interval: TimeInterval?) -> Self {
+    func with(intervalUpdatesEnabled: Bool, interval: TimeInterval?) -> Self {
         self.intervalUpdatesEnabled = intervalUpdatesEnabled
         self.localizationUpdatesInterval = interval
         return self

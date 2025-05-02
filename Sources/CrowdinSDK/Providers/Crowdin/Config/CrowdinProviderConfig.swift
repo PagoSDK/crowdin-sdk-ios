@@ -7,12 +7,12 @@
 
 import Foundation
 
-@objcMembers public class CrowdinProviderConfig: NSObject {
+@objcMembers class CrowdinProviderConfig: NSObject {
     var hashString: String
     var sourceLanguage: String
     var organizationName: String?
     var minimumManifestUpdateInterval: TimeInterval
-    public init(hashString: String, sourceLanguage: String, organizationName: String? = nil, minimumManifestUpdateInterval: TimeInterval = Constants.defaultMinimumManifestUpdateInterval) {
+    init(hashString: String, sourceLanguage: String, organizationName: String? = nil, minimumManifestUpdateInterval: TimeInterval = Constants.defaultMinimumManifestUpdateInterval) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
         self.organizationName = organizationName
@@ -20,13 +20,13 @@ import Foundation
     }
 
     @available(*, deprecated, renamed: "init(hashString:sourceLanguage:)")
-    public init(hashString: String, localizations: [String], sourceLanguage: String) {
+    init(hashString: String, localizations: [String], sourceLanguage: String) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
         self.minimumManifestUpdateInterval = Constants.defaultMinimumManifestUpdateInterval
     }
 
-    public override init() {
+    override init() {
         guard let hashString = Bundle.main.crowdinDistributionHash else {
             fatalError("Please add CrowdinDistributionHash key to your Info.plist file")
         }
@@ -37,7 +37,7 @@ import Foundation
         self.sourceLanguage = crowdinSourceLanguage
         self.minimumManifestUpdateInterval = Constants.defaultMinimumManifestUpdateInterval
     }
-    public enum Constants {
+    enum Constants {
         // New default minimum interval for manifest updates
         public static let defaultMinimumManifestUpdateInterval: TimeInterval = 15 * 60 // 15 minutes
     }
