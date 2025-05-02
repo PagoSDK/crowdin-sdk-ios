@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CrowdinSDKConfig {
+public extension CrowdinSDKConfig {
     private static var intervalUpdatesEnabled: Bool = false
     private static var intervalUpdatesInterval: TimeInterval? = nil
 

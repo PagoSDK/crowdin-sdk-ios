@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CrowdinSDKConfig {
+public extension CrowdinSDKConfig {
     // Crowdin provider configuration
     private static var crowdinProviderConfig: CrowdinProviderConfig? = nil
     // Realtime updates

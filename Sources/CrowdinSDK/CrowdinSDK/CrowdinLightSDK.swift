@@ -54,7 +54,7 @@ typealias CrowdinSDKLogMessage = (String) -> Void
     static var config: CrowdinSDKConfig!
 
     ///
-    class func stop() {
+    public class func stop() {
         self.unswizzle()
         Localization.current = nil
     }

@@ -7,12 +7,12 @@
 
 import Foundation
 
-@objcMembers class CrowdinProviderConfig: NSObject {
+@objcMembers public class CrowdinProviderConfig: NSObject {
     var hashString: String
     var sourceLanguage: String
     var organizationName: String?
     var minimumManifestUpdateInterval: TimeInterval
-    init(hashString: String, sourceLanguage: String, organizationName: String? = nil, minimumManifestUpdateInterval: TimeInterval = Constants.defaultMinimumManifestUpdateInterval) {
+    public init(hashString: String, sourceLanguage: String, organizationName: String? = nil, minimumManifestUpdateInterval: TimeInterval = Constants.defaultMinimumManifestUpdateInterval) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
         self.organizationName = organizationName
@@ -37,7 +37,7 @@ import Foundation
         self.sourceLanguage = crowdinSourceLanguage
         self.minimumManifestUpdateInterval = Constants.defaultMinimumManifestUpdateInterval
     }
-    enum Constants {
+    public enum Constants {
         // New default minimum interval for manifest updates
         public static let defaultMinimumManifestUpdateInterval: TimeInterval = 15 * 60 // 15 minutes
     }
