@@ -51,22 +51,25 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     var plurals: [AnyHashable: Any] { return localStorage.plurals }
     var pluralsFolder: FolderProtocol
     var pluralsBundle: DictionaryBundleProtocol?
-    var stringsDataSource: LocalizationDataSourceProtocol
-    var pluralsDataSource: LocalizationDataSourceProtocol
+    var stringsDataSource: AnyLocalizationDataSource<[String: String]>
+    var pluralsDataSource: AnyLocalizationDataSource<[AnyHashable: Any]>
 
     required init(localization: String, localStorage: LocalLocalizationStorageProtocol, remoteStorage: RemoteLocalizationStorageProtocol) {
         self.localization = localization
         self.localStorage = localStorage
         self.remoteStorage = remoteStorage
         self.pluralsFolder = Folder(path: CrowdinFolder.shared.path + String.pathDelimiter + Strings.plurals.rawValue)
-        self.stringsDataSource = StringsLocalizationDataSource(strings: [:])
-        self.pluralsDataSource = PluralsLocalizationDataSource(plurals: [:])
+        self.stringsDataSource = AnyLocalizationDataSource(StringsLocalizationDataSource(strings: [:]))
+        self.pluralsDataSource = AnyLocalizationDataSource(PluralsLocalizationDataSource(plurals: [:]))
         super.init()
         self.refreshLocalization()
     }
 
     func deintegrate() {
-        try? CrowdinFolder.shared.remove()
+        let isLocalStorageUsingRoot = (localStorage as? LocalLocalizationStorage)?.localizationFolder.path == CrowdinFolder.shared.path
+        if !isLocalStorageUsingRoot {
+            try? CrowdinFolder.shared.remove()
+        }
         try? pluralsFolder.remove()
         pluralsBundle?.remove()
         remoteStorage.deintegrate()
@@ -142,7 +145,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     // Setup plurals
     private
     func setupPlurals() {
-        pluralsDataSource = PluralsLocalizationDataSource(plurals: plurals)
+        pluralsDataSource.update(with: plurals)
         setupPluralsBundle()
     }
 
@@ -157,7 +160,7 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
     // Setup strings
     private
     func setupStrings() {
-        self.stringsDataSource = StringsLocalizationDataSource(strings: strings)
+        stringsDataSource.update(with: strings)
     }
 
     private func saveLocalization(strings: [String: String]?, plurals: [AnyHashable: Any]?, for localization: String) {
@@ -196,6 +199,6 @@ class LocalizationProvider: NSObject, LocalizationProviderProtocol {
 
     func set(string: String, for key: String) {
         self.localStorage.strings[key] = string
-        self.setupStrings()
+        stringsDataSource.update(with: self.strings)
     }
 }

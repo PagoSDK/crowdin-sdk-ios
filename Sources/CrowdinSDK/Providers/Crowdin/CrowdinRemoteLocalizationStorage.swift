@@ -58,7 +58,15 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
         self.manifestManager.download(completion: { [weak self] in
             guard let self = self else { return }
             self.localizations = self.manifestManager.iOSLanguages
-            self.localization = CrowdinLightSDK.currentLocalization ?? Bundle.main.preferredLanguage(with: self.localizations)
+            // Only update localization if it wasn't explicitly set and if CrowdinLightSDK has a current localization
+            // or if the current localization is not in the available localizations
+            if let currentLocalization = CrowdinLightSDK.currentLocalization,
+               self.localizations.contains(currentLocalization) {
+                self.localization = currentLocalization
+            } else if !self.localizations.contains(self.localization) {
+                // Fallback to preferred language only if current localization is not available
+                self.localization = Bundle.main.preferredLanguage(with: self.localizations)
+            }
             completion()
         })
     }
@@ -75,7 +83,7 @@ class CrowdinRemoteLocalizationStorage: RemoteLocalizationStorageProtocol {
             minimumManifestUpdateInterval: minimumManifestUpdateInterval
         )
         self.crowdinDownloader = CrowdinLocalizationDownloader(manifestManager: self.manifestManager)
-        self.localizations = []
+        self.localizations = self.manifestManager.iOSLanguages
     }
 
     func fetchData(completion: @escaping LocalizationStorageCompletion, errorHandler: LocalizationStorageError?) {
