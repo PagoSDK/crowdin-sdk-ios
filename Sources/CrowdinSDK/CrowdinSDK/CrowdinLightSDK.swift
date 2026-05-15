@@ -202,12 +202,17 @@ extension CrowdinLightSDK {
     }
 
     /// Method for library initialization.
+    ///
+    /// Pago fork note: the previous call to `self.swizzle()` here installed a
+    /// process-wide `method_exchangeImplementations` on
+    /// `NSBundle.localizedString(forKey:value:table:)` which leaked Crowdin's
+    /// `currentLocalization` into the host application's own bundle lookups.
+    /// Interception is now scoped to `PagoLocalizedBundle` instances — see
+    /// `PagoLocalizedBundle.swift` — so we no longer call `self.swizzle()` at
+    /// startup. The interval-updates path is unaffected.
     class func initializeLib() {
-        self.swizzle()
-
         self.initializeIntervalUpdateFeatureIfNeeded()
     }
-
 
 	/// Method for interval updates feature initialization if IntervalUpdate submodule is added.
     private class func initializeIntervalUpdateFeatureIfNeeded() {
