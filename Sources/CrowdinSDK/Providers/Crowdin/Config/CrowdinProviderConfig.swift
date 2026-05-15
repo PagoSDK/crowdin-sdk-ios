@@ -20,13 +20,13 @@ import Foundation
     }
 
     @available(*, deprecated, renamed: "init(hashString:sourceLanguage:)")
-    public init(hashString: String, localizations: [String], sourceLanguage: String) {
+    init(hashString: String, localizations: [String], sourceLanguage: String) {
         self.hashString = hashString
         self.sourceLanguage = sourceLanguage
         self.minimumManifestUpdateInterval = Constants.defaultMinimumManifestUpdateInterval
     }
 
-    public override init() {
+    override init() {
         guard let hashString = Bundle.main.crowdinDistributionHash else {
             fatalError("Please add CrowdinDistributionHash key to your Info.plist file")
         }

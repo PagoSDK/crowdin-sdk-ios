@@ -12,7 +12,7 @@ import Foundation
 extension String {
 	/// Extension method for simplifying strings localization.
     // swiftlint:disable identifier_name
-	public var cw_localized: String {
+	var cw_localized: String {
 		return NSLocalizedString(self, comment: .empty)
 	}
 
@@ -20,14 +20,14 @@ extension String {
     ///
     /// - Parameter arguments: Formatted string arguments.
     /// - Returns: Localized formatted string.
-    public func cw_localized(with arguments: [CVarArg]) -> String {
+    func cw_localized(with arguments: [CVarArg]) -> String {
         return String(format: NSLocalizedString(self, comment: .empty), arguments: arguments)
     }
 
     /// Extension method for simplifying strings localization with argumets.
     /// - Parameter args: Formatted string arguments.
     /// - Returns: Localized formatted string.
-    public func cw_localized(with args: CVarArg...) -> String {
+    func cw_localized(with args: CVarArg...) -> String {
         return String(format: NSLocalizedString(self, comment: .empty), args)
     }
 }

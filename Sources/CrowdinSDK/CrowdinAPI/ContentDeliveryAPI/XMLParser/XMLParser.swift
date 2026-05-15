@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class SwiftXMLParser: NSObject {
+class SwiftXMLParser: NSObject {
     public let textKey = "XMLParserTextKey"
     public let attributesKey = "XMLParserAttributesKey"
 
@@ -23,7 +23,7 @@ public class SwiftXMLParser: NSObject {
 }
 
 // MARK: - Static factory method
-public extension SwiftXMLParser {
+extension SwiftXMLParser {
     static func makeDic(data: Data) -> [String: Any]? {
         let parser = SwiftXMLParser()
         return parser.makeDic(data: data)
@@ -45,7 +45,7 @@ public extension SwiftXMLParser {
 }
 
 // MARK: - XML To Dic
-public extension SwiftXMLParser {
+extension SwiftXMLParser {
     func makeDic(data: Data) -> [String: Any]? {
 
         // reset
@@ -64,7 +64,7 @@ public extension SwiftXMLParser {
 }
 
 // MARK: - Dic To XML
-public extension SwiftXMLParser {
+extension SwiftXMLParser {
 
     func makeXML(dic: [String: Any]) -> String {
         // reset

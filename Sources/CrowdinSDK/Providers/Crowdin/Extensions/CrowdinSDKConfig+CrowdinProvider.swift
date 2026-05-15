@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CrowdinSDKConfig {
+public extension CrowdinSDKConfig {
     // Crowdin provider configuration
     private static var crowdinProviderConfig: CrowdinProviderConfig? = nil
     // Realtime updates
@@ -24,7 +24,7 @@ extension CrowdinSDKConfig {
     ///
     /// - Parameter crowdinProviderConfig: Crowdin provider configuration object.
     /// - Returns: Same object instance with updated crowdinProviderConfig.
-    public func with(crowdinProviderConfig: CrowdinProviderConfig) -> Self {
+    func with(crowdinProviderConfig: CrowdinProviderConfig) -> Self {
         self.crowdinProviderConfig = crowdinProviderConfig
         return self
     }

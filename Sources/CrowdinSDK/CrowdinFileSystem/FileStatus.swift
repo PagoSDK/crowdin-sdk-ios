@@ -7,18 +7,18 @@
 
 import Foundation
 
-public enum FileStatus {
+enum FileStatus {
     case file
     case directory
     case none
 }
 
-public protocol FileStatsProtocol {
+protocol FileStatsProtocol {
     var status: FileStatus { get }
 }
 
 extension FileStatsProtocol where Self: PathProtocol {
-    public var status: FileStatus {
+    var status: FileStatus {
         let fileManager = FileManager.default
         var isDir: ObjCBool = false
         if fileManager.fileExists(atPath: path, isDirectory: &isDir) {

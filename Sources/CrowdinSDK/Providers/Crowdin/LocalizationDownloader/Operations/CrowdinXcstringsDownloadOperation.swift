@@ -9,30 +9,30 @@ import Foundation
 
 typealias CrowdinDownloadOperationCompletion = ([String: String]?, [AnyHashable: Any]?, Error?) -> Void
 
-public struct Localizations: Codable {
+struct Localizations: Codable {
     public let sourceLanguage: String
     public let version: String
     public let strings: [String: StringInfo]
 }
 
-public struct StringInfo: Codable {
+struct StringInfo: Codable {
     public let extractionState: String?
     public let localizations: [String: StringLocalization]?
 }
 
-public struct StringLocalization: Codable {
+struct StringLocalization: Codable {
     public let stringUnit: StringUnit?
     public let variations: Variations?
     public let substitutions: [String: Substitution]?
 }
 
-public struct Substitution: Codable {
+struct Substitution: Codable {
     let argNum: Int
     let formatSpecifier: String
     let variations: Variations
 }
 
-public struct Variations: Codable {
+struct Variations: Codable {
     let plural: [String: StringUnitWrapper]?
     // Skip for v 1.0
     //    let device: DeviceVariations?
@@ -43,11 +43,11 @@ public struct Variations: Codable {
 //    let variations: [String: StringUnitWrapper]?
 // }
 
-public struct StringUnitWrapper: Codable {
+struct StringUnitWrapper: Codable {
     let stringUnit: StringUnit
 }
 
-public struct StringUnit: Codable {
+struct StringUnit: Codable {
     public let state: String
     public let value: String
 }
@@ -157,8 +157,19 @@ class XCStringsStorage {
         case XCStrings
     }
 
-    // swiftlint:disable force_try
-    static let folder = try! CrowdinFolder.shared.createFolder(with: Strings.XCStrings.rawValue)
+    static let folder: FolderProtocol = {
+        do {
+            return try CrowdinFolder.shared.createFolder(with: Strings.XCStrings.rawValue)
+        } catch {
+            CrowdinLogsCollector.shared.add(
+                log: CrowdinLog(
+                    type: .error,
+                    message: "XCStringsStorage: Failed to create '\(Strings.XCStrings.rawValue)' folder. Falling back to root CrowdinFolder. Error: \(error.localizedDescription)"
+                )
+            )
+            return CrowdinFolder.shared
+        }
+    }()
 
     static func getFile(path: String) -> Data? {
         Data.read(from: folder.path + path)

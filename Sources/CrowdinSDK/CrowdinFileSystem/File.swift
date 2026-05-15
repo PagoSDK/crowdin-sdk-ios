@@ -11,11 +11,11 @@ import UIKit
 #endif
 import Foundation
 
-public protocol PathProtocol {
+protocol PathProtocol {
     var path: String { get set }
 }
 
-public protocol FileProtocol: PathProtocol {
+protocol FileProtocol: PathProtocol {
     var name: String { get set }
     var type: String { get set }
     var isCreated: Bool { get }
@@ -25,7 +25,7 @@ public protocol FileProtocol: PathProtocol {
     func remove() throws
 }
 
-public class File: FileProtocol, FileStatsProtocol {
+class File: FileProtocol, FileStatsProtocol {
     public var path: String
     public var name: String
     public var type: String
@@ -56,18 +56,18 @@ public class File: FileProtocol, FileStatsProtocol {
         }
     }
 
-    public var isCreated: Bool { return status == .file }
+    var isCreated: Bool { return status == .file }
 
-    public var content: Data? {
+    var content: Data? {
         guard self.isCreated else { return nil }
         return try? Data(contentsOf: URL(fileURLWithPath: path))
     }
 
-    public func remove() throws {
+    func remove() throws {
         try FileManager.default.removeItem(atPath: path)
     }
 
-    public func create() {
+    func create() {
 		FileManager.default.createFile(atPath: path, contents: nil, attributes: nil)
 	}
 }

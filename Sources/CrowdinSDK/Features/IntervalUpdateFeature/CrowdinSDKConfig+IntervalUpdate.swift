@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CrowdinSDKConfig {
+public extension CrowdinSDKConfig {
     private static var intervalUpdatesEnabled: Bool = false
     private static var intervalUpdatesInterval: TimeInterval? = nil
 
@@ -31,7 +31,7 @@ extension CrowdinSDKConfig {
         }
     }
 
-    public func with(intervalUpdatesEnabled: Bool, interval: TimeInterval?) -> Self {
+    func with(intervalUpdatesEnabled: Bool, interval: TimeInterval?) -> Self {
         self.intervalUpdatesEnabled = intervalUpdatesEnabled
         self.localizationUpdatesInterval = interval
         return self
