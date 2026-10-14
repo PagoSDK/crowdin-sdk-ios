@@ -60,6 +60,6 @@ final class IntervalUpdateFeature: IntervalUpdateFeatureProtocol {
     }
 
     @objc private func update(sender: Any) {
-        Localization.current.provider.refreshLocalization()
+        Localization.current?.provider.refreshLocalization()
     }
 }

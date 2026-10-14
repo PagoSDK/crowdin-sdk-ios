@@ -26,7 +26,23 @@ class Localization {
 
     // swiftlint:disable implicitly_unwrapped_optional
     /// Instance of shared @Localization class instance.
-    static var current: Localization! = nil
+    static var current: Localization! {
+        get {
+            currentLock.lock()
+            defer { currentLock.unlock() }
+            return _current
+        }
+        set {
+            currentLock.lock()
+            let old = _current
+            _current = newValue
+            currentLock.unlock()
+            withExtendedLifetime(old) {}
+        }
+    }
+
+    private static let currentLock = NSLock()
+    private static var _current: Localization?
 
     /// Property for detecting and storing curent localization value depending on current SDK mode.
     static var currentLocalization: String? {

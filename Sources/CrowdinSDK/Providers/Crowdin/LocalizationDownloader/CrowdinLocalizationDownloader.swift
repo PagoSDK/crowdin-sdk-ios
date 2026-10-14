@@ -27,6 +27,11 @@ class CrowdinLocalizationDownloader: CrowdinDownloaderProtocol {
 
     func download(with hash: String, for localization: String, completion: @escaping CrowdinDownloaderCompletion) {
         self.completion = completion
+        lock.lock()
+        self.strings = nil
+        self.plurals = nil
+        self.errors = nil
+        lock.unlock()
         self.getFiles(for: localization) { [weak self] (files, timestamp, error) in
             guard let self = self else { return }
             if let files = files {
