@@ -22,6 +22,10 @@ class ManifestManager {
     fileprivate var completionsMap = [String: [() -> Void]]()
     /// Dictionary with manifest managers for hashes.
     fileprivate static var manifestMap = [String: ManifestManager]()
+
+    static func removeAllInMemoryManagers() {
+        manifestMap.removeAll()
+    }
     
     private var minimumManifestUpdateInterval: TimeInterval
     
