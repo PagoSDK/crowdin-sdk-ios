@@ -26,6 +26,7 @@ public extension CrowdinLightSDK {
     ///   - completion: Crowdin SDK library initialization completion.
     class func startWithConfig(_ config: CrowdinSDKConfig, completion: @escaping () -> Void) {
         self.config = config
+        CrowdinFolder.shared.createFoldersIfNeeded()
         let crowdinProviderConfig = config.crowdinProviderConfig ?? CrowdinProviderConfig()
         let localization = currentLocalization ?? Bundle.main.preferredLanguage
         let remoteStorage = CrowdinRemoteLocalizationStorage(localization: localization, config: crowdinProviderConfig)
